@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-# Bash script that uses ssh to connect to your server using the private key ~/.ssh/school with the user ubuntu.
-ssh -i ~/.ssh/school ubuntu@100.27.225.232
+# SSH into server using private key ~/.ssh/school
+ssh -i ~/.ssh/school ubuntu @8.8.8
+
+# you can replace 8.8.8. with your actula server IP or hostname
+
+echo "connection to 8.8.8 closed"

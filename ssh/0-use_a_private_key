@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# SSH into server using private key ~/.ssh/school
+ssh -i ~/.ssh/school ubuntu @8.8.8
+
+# you can replace 8.8.8. with your actula server IP or hostname
+
+echo "connection to 8.8.8 closed"

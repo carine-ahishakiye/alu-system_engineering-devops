@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
-# Define variables
-KEY_FILE="school"
-PASSPHRASE="your_passphrase_here"
+# Check if the school file already exists
+if [ -f "school" ]; then
+    echo "school file already exists."
+    read -p "Overwrite (y/n)? " overwrite
+    if [ "$overwrite" != "y" ]; then
+        echo "Aborted."
+        exit 1
+    fi
+fi
 
-# Generate SSH key pair
-ssh-keygen -t rsa -b 4096 -f "$KEY_FILE" -N "$PASSPHRASE"
+# Generate RSA key pair with a passphrase
+echo "Generating RSA key pair..."
+ssh-keygen -b 4096 -t rsa -f school -N betty
 
-# Check if key generation was successful
+# Check if the key generation was successful
 if [ $? -eq 0 ]; then
-    echo "SSH key pair generated successfully."
+    echo "RSA key pair generated successfully."
 else
-    echo "Error generating SSH key pair."
+    echo "Failed to generate RSA key pair."
     exit 1
 fi
+
+# Output success message
+echo "The school file is an OpenSSH private key."
+

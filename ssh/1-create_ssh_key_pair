@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
-# Ensure the .ssh directory exists
-mkdir -p /root/.ssh
-
-# Create the RSA private key with a passphrase
-ssh-keygen -t rsa -b 4096 -N "betty" -f /root/.ssh/school
-
-# Check if the file was created successfully
-if [ -f "/root/.ssh/school" ]; then
-    echo "RSA private key file '/root/.ssh/school' created successfully."
-else
-    echo "Error: RSA private key file '/root/.ssh/school' was not created."
-    exit 1
-fi
+# SSH into server using the private key from the new location with user ubuntu
+ssh-keygen -b 4096 -f school -t rsa -N betty

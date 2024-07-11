@@ -1,12 +1,34 @@
 #!/usr/bin/env bash
 
-# Generate a 4096-bit RSA private key with a passphrase
-ssh-keygen -b 4096 -f school -t rsa -N betty
+# Function to generate SSH key pair
+generate_ssh_keypair() {
+    # Generate a 4096-bit RSA private key with a passphrase
+    echo -e "y\n" | ssh-keygen -b 4096 -f school -t rsa -N betty
+}
 
-# Ensure the school file exists after script execution
-if [ -f "school" ]; then
-    echo "school: OpenSSH private key"
+# Check if school file already exists
+if [ ! -f "school" ]; then
+    generate_ssh_keypair
+    if [ $? -eq 0 ]; then
+        if file school | grep -q "OpenSSH private key"; then
+            echo "school: OpenSSH private key"
+        else
+            echo "school: Key generation successful but not an OpenSSH private key"
+        fi
+    else
+        echo "Error generating SSH key pair"
+    fi
 else
-    echo "school: cannot open 'school' (No such file or directory)"
+    echo "school already exists. Overwriting..."
+    generate_ssh_keypair
+    if [ $? -eq 0 ]; then
+        if file school | grep -q "OpenSSH private key"; then
+            echo "school: OpenSSH private key"
+        else
+            echo "school: Key generation successful but not an OpenSSH private key"
+        fi
+    else
+        echo "Error generating SSH key pair"
+    fi
 fi
 

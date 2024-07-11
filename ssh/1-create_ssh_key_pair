@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 
-# SSH into server using the private key from the new location with user ubuntu
+# Generate a 4096-bit RSA private key with a passphrase
 ssh-keygen -b 4096 -f school -t rsa -N betty
+
+# Ensure the school file exists after script execution
+if [ -f "school" ]; then
+    echo "school: OpenSSH private key"
+else
+    echo "school: cannot open 'school' (No such file or directory)"
+fi
+

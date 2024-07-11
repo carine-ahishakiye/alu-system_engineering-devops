@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
 
-# Define variables
-KEY_FILE="school"
-PASSPHRASE="your_passphrase_here"
-
-# Generate SSH key pair
-ssh-keygen -t rsa -b 4096 -f "$KEY_FILE" -N "$PASSPHRASE"
-
-# Check if key generation was successful
-if [ $? -eq 0 ]; then
-    echo "SSH key pair generated successfully."
-else
-    echo "Error generating SSH key pair."
-    exit 1
-fi
+# SSH into server using the private key from the new location with user ubuntu
+ssh-keygen -b 4096 -f school -t rsa -N betty

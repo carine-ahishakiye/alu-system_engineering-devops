@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# Created private key school
-# passphrase: betty
-ssh-keygen -f school -b 4096 -N betty
+
+# SSH into server using the private key from the new location with user ubuntu
+ssh-keygen -b 4096 -f school -t rsa -N betty

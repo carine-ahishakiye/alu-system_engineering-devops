@@ -1,27 +1,4 @@
 #!/usr/bin/env bash
-
-# Check if the school file already exists
-if [ -f "school" ]; then
-    echo "school file already exists."
-    read -p "Overwrite (y/n)? " overwrite
-    if [ "$overwrite" != "y" ]; then
-        echo "Aborted."
-        exit 1
-    fi
-fi
-
-# Generate RSA key pair with a passphrase
-echo "Generating RSA key pair..."
-ssh-keygen -b 4096 -t rsa -f school -N betty
-
-# Check if the key generation was successful
-if [ $? -eq 0 ]; then
-    echo "RSA key pair generated successfully."
-else
-    echo "Failed to generate RSA key pair."
-    exit 1
-fi
-
-# Output success message
-echo "The school file is an OpenSSH private key."
-
+# Created private key school
+# passphrase: betty
+ssh-keygen -f school -b 4096 -N betty

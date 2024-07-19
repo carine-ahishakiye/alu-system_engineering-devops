@@ -1,24 +1,15 @@
 #!/usr/bin/env bash
+#Installing Nginx on Ubuntu
+#Nginx is listening on port 80
+#The GET request should return a page containing "Holberton School"
 
-# Update package lists
-apt-get update -y
+sudo apt-get update && upgrade
+sudo apt-get install nginx -y
 
-# Install Nginx
-apt-get install nginx -y
-
-# Start Nginx without using systemctl
-service nginx start
-
-# Create the HTML page
-echo "Holberton School" > /var/www/html/index.html
-
-# Restart Nginx without using systemctl
-service nginx restart
-
-# Ensure Nginx is listening on port 80
-if ! netstat -tuln | grep -q ':80'; then
-  echo "Error: Nginx is not listening on port 80"
-  exit 1
-fi
-
-echo "Nginx installed and configured successfully."
+#Create a directory called html inside your nginx server
+sudo mkdir /var/www/html
+#Create a file inside that directory called index.html
+sudo touch /var/www/html/index.html
+#Display your message then
+sudo echo "Holberton School" > /var/www/html/index.html
+sudo service nginx restart

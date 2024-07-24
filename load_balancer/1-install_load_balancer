@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
-#Bash script that installs HAProxy & makes configurations
+# Bash script that installs HAProxy & makes configurations
 
+# Install software properties common
 apt-get -y install software-properties-common
+
+# Add HAProxy PPA repository
 add-apt-repository ppa:vbernat/haproxy-1.8
+
+# Update package list
 apt-get update
+
+# Install HAProxy
 apt-get -y install haproxy
+
+# Enable HAProxy to start on boot
 echo "ENABLED=1" >> /etc/default/haproxy
+
+# Configure HAProxy
 printf %s "listen 6052-webs
     bind *:80
     mode http
@@ -13,4 +24,20 @@ printf %s "listen 6052-webs
     server 6074-web-02 34.228.39.53:80 check
     server 6074-web-01 54.234.95.85:80 check
 " >> /etc/haproxy/haproxy.cfg
+
+# Restart HAProxy service
 sudo service haproxy restart
+
+# Check HAProxy configuration and ensure it does not contain "web-01" or "web-02"
+OUTPUT=$(cat /etc/haproxy/haproxy.cfg)
+if echo "$OUTPUT" | grep -q "web-01"; then
+  echo "Output contains 'web-01'"
+  exit 1
+fi
+if echo "$OUTPUT" | grep -q "web-02"; then
+  echo "Output contains 'web-02'"
+  exit 1
+fi
+
+echo "HAProxy configuration completed successfully without 'web-01' or 'web-02'"
+

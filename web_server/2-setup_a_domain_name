@@ -1,2 +1,14 @@
-carine03.tech
-# Test change
+#!/usr/bin/env bash
+
+# Domain to validate
+domain="carine03.tech"
+
+# Regex pattern
+pattern="^[0-9a-zA-Z-]*\.(tech|website|site|space|online)$"
+
+# Validate domain
+if [[ $domain =~ $pattern ]]; then
+    echo "Domain is valid"
+else
+    echo "Domain is invalid"
+fi

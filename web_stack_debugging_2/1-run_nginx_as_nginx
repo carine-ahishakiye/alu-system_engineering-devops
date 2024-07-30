@@ -10,11 +10,15 @@ sudo sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
 # Ensure the nginx.conf file has appropriate permissions
 sudo chmod 644 /etc/nginx/nginx.conf
 
-# Restart Nginx service as the nginx user
+# Restart Nginx service
 sudo service nginx restart
+
 # Verify Nginx is running as the nginx user
-if ps aux | grep '[n]ginx' | grep -q 'nginx'; then
+if pgrep -u nginx nginx > /dev/null; then
   echo "Nginx is running as the nginx user."
 else
   echo "Nginx is not running as the nginx user."
+  echo "Current Nginx processes:"
+  ps aux | grep '[n]ginx'
 fi
+

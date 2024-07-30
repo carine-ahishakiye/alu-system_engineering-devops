@@ -1,3 +1,4 @@
-#!usr/bin/env bash
-#run software as another user
-sudo -u $1 whoami
+#!/usr/bin/env bash
+# Script to execute 'whoami' as a different user
+
+sudo -u "$1" whoami

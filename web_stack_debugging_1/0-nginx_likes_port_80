@@ -7,3 +7,5 @@ rm /etc/nginx/sites-enabled/default
 ln-a /etc/nginx/sites-available/default/etc/nginx/sites-enabled/default
 #restart nginx
 service nginx restart
+# termination of first Nginx process ID
+kill "$(pgrep 'nginx' | head -1)"

@@ -12,3 +12,9 @@ sudo chmod 644 /etc/nginx/nginx.conf
 
 # Restart Nginx service as the nginx user
 sudo service nginx restart
+# Verify Nginx is running as the nginx user
+if ps aux | grep '[n]ginx' | grep -q 'nginx'; then
+  echo "Nginx is running as the nginx user."
+else
+  echo "Nginx is not running as the nginx user."
+fi

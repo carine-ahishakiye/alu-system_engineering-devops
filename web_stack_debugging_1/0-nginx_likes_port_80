@@ -1,11 +1,45 @@
 #!/usr/bin/env bash
-# configures an Nginx server to listen on port 80.
+# Configures an Nginx server to listen on port 80.
 
-#remove the default Nginx configuration file
-rm /etc/nginx/sites-enabled/default
-#configure Nginx to listen on port 80 for all active IPv4 IPs
-ln-a /etc/nginx/sites-available/default/etc/nginx/sites-enabled/default
-#restart nginx
+# Check if Nginx is installed
+if ! command -v nginx > /dev/null; then
+  echo "Nginx is not installed. Installing Nginx..."
+  apt update
+  apt install -y nginx
+fi
+
+# Remove the default Nginx configuration file
+if [ -f /etc/nginx/sites-enabled/default ]; then
+  rm /etc/nginx/sites-enabled/default
+fi
+
+# Ensure the Nginx configuration file exists in sites-available
+if [ -f /etc/nginx/sites-available/default ]; then
+  ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+else
+  echo "Nginx configuration file not found in /etc/nginx/sites-available/"
+  exit 1
+fi
+
+# Restart Nginx
 service nginx restart
-# termination of first Nginx process ID
+
+# Verify if Nginx is running
+if ! pgrep nginx > /dev/null; then
+  echo "Nginx failed to start."
+  exit 1
+fi
+
+# Termination of the first Nginx process ID
 kill "$(pgrep 'nginx' | head -1)"
+
+# Restart Nginx to ensure it picks up the new configuration
+service nginx start
+
+# Verify if Nginx is running on port 80
+if curl -s -o /dev/null -w "%{http_code}" http://localhost:80 | grep -q "200"; then
+  echo "Nginx is running and returning HTTP 200 on port 80."
+else
+  echo "Nginx is not returning HTTP 200 on port 80."
+  exit 1
+fi

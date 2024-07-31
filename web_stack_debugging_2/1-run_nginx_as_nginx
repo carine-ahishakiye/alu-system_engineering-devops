@@ -11,14 +11,4 @@ sudo sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
 sudo chmod 644 /etc/nginx/nginx.conf
 
 # Restart Nginx service
-sudo systemctl restart nginx
-
-# Output verification
-echo "Nginx user configuration:"
-grep 'user ' /etc/nginx/nginx.conf
-
-echo "Nginx processes:"
-ps aux | grep '[n]ginx'
-
-echo "Nginx listening on port 8080:"
-ss -tuln | grep ':8080'
+sudo systemctl restart nginx'

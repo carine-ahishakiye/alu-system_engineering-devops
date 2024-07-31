@@ -12,3 +12,11 @@ sudo chmod 644 /etc/nginx/nginx.conf
 
 # Restart Nginx service
 sudo systemctl restart nginx
+
+# Check if Nginx is running and list processes
+echo "Checking Nginx processes..."
+ps aux | grep nginx
+
+# Check if Nginx is listening on port 8080
+echo "Checking if Nginx is listening on port 8080..."
+ss -tuln | grep ':8080'

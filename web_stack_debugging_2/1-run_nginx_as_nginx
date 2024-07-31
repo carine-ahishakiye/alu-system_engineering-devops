@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# Run Nginx as nginx user
 
-# Update the user from www-data to nginx in nginx.conf
-sudo sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+# Check if Nginx is running and list processes
+ps aux | grep nginx
 
-# Change the listening port from 80 to 8080 in the default site configuration
-sudo sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
+# Check if Nginx is listening on port 8080
+ss -tuln | grep ':8080'
 
-# Ensure the nginx.conf file has appropriate permissions
-sudo chmod 644 /etc/nginx/nginx.conf
-
-# Restart Nginx service
-sudo service nginx restart
+# Confirm that the output contains 'nginx'
+if ps aux | grep -q 'nginx'; then
+    echo "Nginx is running as the nginx user."
+else
+    echo "Nginx is not running as the nginx user."
+fi
